@@ -265,7 +265,6 @@ public final class Launcher extends Activity
         checkForLocaleChange();
         setWallpaperDimension();
 
-        //setContentView(R.layout.launcher);
         // Sets the number of screens replaces 
         //setContentView(R.layout.launcher)
         setNumScreens();

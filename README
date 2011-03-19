@@ -1,0 +1,24 @@
+/packages/apps/Launcher2/res/values-land/styles.xml
+	-Added my own style - HotseatButtonStyle.Stark
+
+/frameworks/base/core/java/android/provider/Settings.java
+	-Added a String for my God Mode option at line 2675
+
+/packages/apps/God_Mode/res/xml/ui_options.java
+	-Added a check box for my God Mode option, line 5
+
+/packages/apps/God_Mode/res/values/strings.xml
+	-Added strings for my God Mode option 25-27
+
+/packages/apps/God_Mode/src/com/t3hh4xx0r/god_mode/UiOptions.java
+	-Just kinda guessing on this one: a string at line 27 and an if at line 73
+
+/packages/apps/Launcher2/res/layout-port/launcher_stark.xml
+	-The themed launcher in portrait
+
+/packages/apps/Launcher2/res/layout-land/launcher_stark.xml
+	-The themed launcher in landscape
+
+To do:
+Activate the theme if the god mode option is selected: inflate it in Workspace.java
+Design the center disk to do what I want

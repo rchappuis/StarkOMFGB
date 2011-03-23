@@ -19,6 +19,9 @@
 /packages/apps/Launcher2/res/layout-land/launcher_stark.xml
 	-The themed launcher in landscape
 
+/packages/apps/Launcher2/src/com/android/launcher2/LauncherDisk.java
+	-A custom view responsible for handling a single disk- therefore, there are 2 in the xml file
+
 To do:
 Activate the theme if the god mode option is selected: inflate it in Workspace.java
 Design the center disk to do what I want

@@ -632,7 +632,8 @@ public class LauncherProvider extends ContentProvider {
             PackageManager packageManager = mContext.getPackageManager();
             int i = 0;
             try {
-                XmlResourceParser parser = mContext.getResources().getXml(R.xml.default_workspace);
+		XmlResourceParser parser = getDefaultWorkspace();
+                // XmlResourceParser parser = mContext.getResources().getXml(R.xml.default_workspace);
                 AttributeSet attrs = Xml.asAttributeSet(parser);
                 XmlUtils.beginDocument(parser, TAG_FAVORITES);
 
@@ -685,7 +686,39 @@ public class LauncherProvider extends ContentProvider {
 
             return i;
         }
+ /**
+* Loads the default set of favorite packages from an xml file.
+*/
 
+
+XmlResourceParser getDefaultWorkspace(){
+
+	try{
+		mNumScreen = Settings.System.getInt( mContext.getContentResolver() , SCREENSETTINGS);
+	
+	} catch (SettingNotFoundException e) {
+
+		// TODO Auto-generated catch block
+	e.printStackTrace();
+	mNumScreen = 7;
+	
+  	}
+ 
+	if( mNumScreen == 3)
+	{
+	return mContext.getResources().getXml(R.xml.default_workspace_3);
+	}
+	else if(mNumScreen == 5)
+	{
+	return mContext.getResources().getXml(R.xml.default_workspace_5);
+	}
+	else 
+	{
+	return mContext.getResources().getXml(R.xml.default_workspace_7);
+	}
+
+
+}
         private boolean addAppShortcut(SQLiteDatabase db, ContentValues values, TypedArray a,
                 PackageManager packageManager, Intent intent) {
 

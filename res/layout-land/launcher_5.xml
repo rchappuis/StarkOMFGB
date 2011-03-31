@@ -54,7 +54,7 @@
         android:layout_marginRight="6dip"
 
         android:scaleType="center"
-        android:src="@drawable/home_arrows_right_screen_5"
+        android:src="@drawable/home_arrows_right_screens_5"
         
         android:onClick="nextScreen"
         

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 
 *
-*	Copyright (C) 2010 ConicalMod ROMs and Applications
+*	Copyright (C) 2010 OMFGB ROMs and Applications
 *
 -->
 
@@ -32,21 +32,17 @@
                 
     </com.android.launcher2.Workspace>
  
-    <!-- this defines the dots location indicator -->
- <com.android.launcher2.ClippedImageView
+   <!-- this defines the dots location indicator -->
+    <com.android.launcher2.ClippedImageView
         android:id="@+id/previous_screen"
         android:layout_width="93dip"
         android:layout_height="@dimen/button_bar_height"
-        android:layout_gravity="top|right"
+        android:layout_gravity="bottom|left"
         android:layout_marginLeft="6dip"
-
         android:scaleType="center"
-        android:src="@drawable/home_arrows_left_screens_7"
-        
+        android:src="@drawable/home_arrows_left_screens_3"
         android:onClick="previousScreen"
-
         launcher:ignoreZone="56dip"
-
         android:focusable="true"
         android:clickable="true" />
 
@@ -56,14 +52,10 @@
         android:layout_height="@dimen/button_bar_height"
         android:layout_gravity="bottom|right"
         android:layout_marginRight="6dip"
-
         android:scaleType="center"
-        android:src="@drawable/home_arrows_right_screens_7"
-        
-        android:onClick="nextScreen"
-        
-        launcher:ignoreZone="-56dip"
-        
+        android:src="@drawable/home_arrows_right_screens_3"        
+        android:onClick="nextScreen"        
+        launcher:ignoreZone="-56dip" 
         android:focusable="true"
         android:clickable="true" />
 
@@ -74,7 +66,6 @@
         android:paddingLeft="@dimen/delete_zone_padding"
         android:layout_marginBottom="@dimen/half_status_bar_height"
         android:layout_gravity="right|center_vertical"
-
         android:scaleType="center"
         android:src="@drawable/delete_zone_selector"
         android:visibility="invisible"
@@ -86,8 +77,7 @@
         android:layout_height="fill_parent"
         android:layout_width="@dimen/button_bar_height_portrait"
         android:layout_gravity="right|center_vertical"
-        android:layout_marginBottom="@dimen/half_status_bar_height"
-        >
+        android:layout_marginBottom="@dimen/half_status_bar_height">
 
         <com.android.launcher2.HandleView
             style="@style/HotseatButton"
@@ -96,28 +86,23 @@
             android:layout_alignParentRight="true"
 
             android:src="@drawable/all_apps_button"
-            launcher:direction="vertical"
-            />
+            launcher:direction="vertical"/>
 
         <ImageView
             android:id="@+id/hotseat_left"
             style="@style/HotseatButton.Left"
             android:layout_below="@id/all_apps_button"
-
             android:src="@drawable/hotseat_phone"
-
-            android:onClick="launchHotSeat"
-            />
+            android:onClick="launchHotSeat"/>
+            
 
         <ImageView
             android:id="@+id/hotseat_right"
             style="@style/HotseatButton.Right"
             android:layout_above="@id/all_apps_button"
-
             android:src="@drawable/hotseat_browser"
-
-            android:onClick="launchHotSeat"
-            />
+            android:onClick="launchHotSeat"/>
+            
 
     </RelativeLayout>
 </com.android.launcher2.DragLayer>

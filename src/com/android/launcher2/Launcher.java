@@ -53,8 +53,6 @@ import android.os.Parcelable;
 import android.os.SystemClock;
 import android.os.SystemProperties;
 import android.provider.LiveFolders;
-import android.provider.Settings;
-import android.provider.Settings.SettingNotFoundException;
 import android.text.Selection;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -95,7 +93,7 @@ import com.android.launcher.R;
 public final class Launcher extends Activity
         implements View.OnClickListener, OnLongClickListener, LauncherModel.Callbacks, AllAppsView.Watcher {
     static final String TAG = "Launcher";
-    static final boolean LOGD = true;
+    static final boolean LOGD = false;
 
     static final boolean PROFILE_STARTUP = false;
     static final boolean DEBUG_WIDGETS = false;
@@ -124,21 +122,7 @@ public final class Launcher extends Activity
 
     static final String EXTRA_SHORTCUT_DUPLICATE = "duplicate";
 
-       // Set the amount of screen
-    // The value should be pulled from the
-    // iconic home screen settings menu
-    // System.Settings.getInt();
-
-    static int DEFAULT_SCREEN_COUNT = 7;
-    //Because this is what is is when created
-    static int SCREEN_COUNT = DEFAULT_SCREEN_COUNT; 
-    public static final String SCREENSETTINGS = "NUM_SCREENS";
-    
-	final int THREE = 3;
-	final int FIVE  = 5;
-	final int SEVEN = 7;
-    
-
+    static final int SCREEN_COUNT = 5;
     static final int DEFAULT_SCREEN = 2;
     static final int NUMBER_CELLS_X = 4;
     static final int NUMBER_CELLS_Y = 4;
@@ -254,8 +238,7 @@ public final class Launcher extends Activity
         checkForLocaleChange();
         setWallpaperDimension();
 
-// Sets the number of screens replaces setContentView(R.layout.launcher)
-        setNumScreens();
+        setContentView(R.layout.launcher);
         setupViews();
 
         registerContentObservers();
@@ -280,65 +263,6 @@ public final class Launcher extends Activity
         IntentFilter filter = new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
         registerReceiver(mCloseSystemDialogsReceiver, filter);
     }
-
-  
-    private void setNumScreens(){
-    	
-   Log.d(TAG, "Setting the number of screens for the launcher");
-    	
-   int NUM_SCREENS = DEFAULT_SCREEN_COUNT;
-    	
-	try{
-	
-		NUM_SCREENS = Settings.System.getInt( getContentResolver() , SCREENSETTINGS) ;
-    	Log.d(TAG, "The number of screens is " + NUM_SCREENS);
-	
-	} catch (SettingNotFoundException e) {
-
-		// TODO Auto-generated catch block
-		Log.d(TAG,"Settings not found, manually resolving number of screens");
-		NUM_SCREENS = DEFAULT_SCREEN_COUNT;
-	
-  	}
-    	
-    	Log.d(TAG, "Number of screens setting resolved");
-    	
-    	
-    	
-    	
-    	switch(NUM_SCREENS)
-    	{
-    	   	case THREE:
-    	   	{
-    	   		SCREEN_COUNT = THREE;
-    	   		setContentView(R.layout.launcher_3);
-    	   		break;
-    	   	}
-    	   	case FIVE:
-    	   	{
-    	   		SCREEN_COUNT = FIVE;
-    	   		setContentView(R.layout.launcher_5);  	
-    	   		break;
-    	   	}
-    	   	case SEVEN:
-    	   	{
-    	   		SCREEN_COUNT = SEVEN;
-    	   		setContentView(R.layout.launcher_7); 
-    	   		break;
-    	   		
-    	   	}
-    	   	default:
-    	   	{
-    	   		SCREEN_COUNT = SEVEN;
-    	   	    setContentView(R.layout.launcher_7);  
-    	   		break;
-    	   	}
-    	
-    	}
- 
-    	
-    }
-    //
 
     private void checkForLocaleChange() {
         if (sLocaleConfiguration == null) {

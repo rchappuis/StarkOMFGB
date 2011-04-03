@@ -46,7 +46,6 @@ import android.util.AttributeSet;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.provider.Settings;
-import android.provider.Settings.SettingNotFoundException;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -72,9 +71,6 @@ public class LauncherProvider extends ContentProvider {
     
     static final String TABLE_FAVORITES = "favorites";
     static final String PARAMETER_NOTIFY = "notify";
-
-    public static final String SCREENSETTINGS = "NUM_SCREENS";
-    static int mNumScreen;
 
     /**
      * {@link Uri} triggered at any registered {@link android.database.ContentObserver} when

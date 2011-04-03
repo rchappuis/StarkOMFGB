@@ -18,12 +18,22 @@ package com.android.launcher2;
 
 import com.android.common.Search;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.SearchManager;
 import android.app.StatusBarManager;
 import android.app.WallpaperManager;
+import android.appwidget.AppWidgetManager;
+import android.appwidget.AppWidgetProviderInfo;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -31,9 +41,8 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.Intent.ShortcutIconResource;
 import android.content.IntentFilter;
-import android.content.pm.ActivityInfo;
+import android.content.Intent.ShortcutIconResource;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
@@ -41,10 +50,10 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.database.ContentObserver;
 import android.graphics.Bitmap;
-import android.graphics.Rect;
 import android.graphics.Canvas;
-import android.graphics.drawable.Drawable;
+import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -54,6 +63,8 @@ import android.os.Parcelable;
 import android.os.SystemClock;
 import android.os.SystemProperties;
 import android.provider.LiveFolders;
+import android.provider.Settings;
+import android.provider.Settings.SettingNotFoundException;
 import android.text.Selection;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -70,10 +81,7 @@ import android.view.ViewGroup;
 import android.view.View.OnLongClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.LinearLayout;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProviderInfo;
@@ -85,6 +93,9 @@ import java.io.DataOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.DataInputStream;
+import android.widget.PopupWindow;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.launcher.R;
 
@@ -123,7 +134,21 @@ public final class Launcher extends Activity
 
     static final String EXTRA_SHORTCUT_DUPLICATE = "duplicate";
 
-    static final int SCREEN_COUNT = 5;
+    // Set the amount of screen
+    // The value should be pulled from the
+    // iconic home screen settings menu
+    // System.Settings.getInt();
+
+    static int DEFAULT_SCREEN_COUNT = 7;
+    static int SCREEN_COUNT = 3;
+    
+
+    public static final String SCREENSETTINGS = "NUM_SCREENS";
+    
+	final int THREE = 3;
+	final int FIVE  = 5;
+	final int SEVEN = 7;
+    
     static final int DEFAULT_SCREEN = 2;
     static final int NUMBER_CELLS_X = 4;
     static final int NUMBER_CELLS_Y = 4;
@@ -240,7 +265,10 @@ public final class Launcher extends Activity
         checkForLocaleChange();
         setWallpaperDimension();
 
-        setContentView(R.layout.launcher);
+        //setContentView(R.layout.launcher);
+        // Sets the number of screens replaces 
+        //setContentView(R.layout.launcher)
+        setNumScreens();
         setupViews();
 
         registerContentObservers();
@@ -264,6 +292,76 @@ public final class Launcher extends Activity
 
         IntentFilter filter = new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
         registerReceiver(mCloseSystemDialogsReceiver, filter);
+    }
+  //Sets the number of screens
+    
+
+    boolean toBool(int i){
+    	if(i == 0)
+    		return false;
+    	else 
+    		return true; 
+    	
+    }
+    
+ 
+    
+    
+    private void setNumScreens(){
+    	
+   Log.d(TAG, "Setting the number of screens for the launcher");
+    	
+   int NUM_SCREENS = 0;
+    	
+	try{
+	
+		NUM_SCREENS = Settings.System.getInt( getContentResolver() , SCREENSETTINGS) ;
+    	Log.d(TAG, "The number of screens is " + NUM_SCREENS);
+	
+	} catch (SettingNotFoundException e) {
+
+		// TODO Auto-generated catch block
+		Log.d(TAG,"Settings not found, manually resolving number of screens");
+		NUM_SCREENS = DEFAULT_SCREEN_COUNT;
+	
+  	}
+    	
+    	Log.d(TAG, "Number of screens setting resolved");
+    	
+    	
+    	
+    	
+    	switch(NUM_SCREENS)
+    	{
+    	   	case THREE:
+    	   	{
+    	   		SCREEN_COUNT = THREE;
+    	   		setContentView(R.layout.launcher_3);
+    	   		break;
+    	   	}
+    	   	case FIVE:
+    	   	{
+    	   		SCREEN_COUNT = FIVE;
+    	   		setContentView(R.layout.launcher_5);  	
+    	   		break;
+    	   	}
+    	   	case SEVEN:
+    	   	{
+    	   		SCREEN_COUNT = SEVEN;
+    	   		setContentView(R.layout.launcher_7); 
+    	   		break;
+    	   		
+    	   	}
+    	   	default:
+    	   	{
+    	   		SCREEN_COUNT = SEVEN;
+    	   	    setContentView(R.layout.launcher_7);  
+    	   		break;
+    	   	}
+    	
+    	}
+ 
+    	
     }
 
     private void checkForLocaleChange() {

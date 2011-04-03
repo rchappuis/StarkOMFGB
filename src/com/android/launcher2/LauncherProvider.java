@@ -16,43 +16,44 @@
 
 package com.android.launcher2;
 
-import android.app.SearchManager;
-import android.appwidget.AppWidgetHost;
-import android.appwidget.AppWidgetManager;
-import android.appwidget.AppWidgetProviderInfo;
-import android.content.ContentProvider;
-import android.content.Context;
-import android.content.ContentValues;
-import android.content.Intent;
-import android.content.ComponentName;
-import android.content.ContentUris;
-import android.content.ContentResolver;
-import android.content.res.Resources;
-import android.content.res.XmlResourceParser;
-import android.content.res.TypedArray;
-import android.content.pm.PackageManager;
-import android.content.pm.ActivityInfo;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteStatement;
-import android.database.sqlite.SQLiteQueryBuilder;
-import android.database.Cursor;
-import android.database.SQLException;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Log;
-import android.util.Xml;
-import android.util.AttributeSet;
-import android.net.Uri;
-import android.text.TextUtils;
-import android.provider.Settings;
-
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
 
-import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
+import android.app.SearchManager;
+import android.appwidget.AppWidgetHost;
+import android.appwidget.AppWidgetManager;
+import android.appwidget.AppWidgetProviderInfo;
+import android.content.ComponentName;
+import android.content.ContentProvider;
+import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
+import android.content.res.XmlResourceParser;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteQueryBuilder;
+import android.database.sqlite.SQLiteStatement;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.Settings;
+import android.provider.Settings.SettingNotFoundException;
+import android.text.TextUtils;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.util.Xml;
 
 import com.android.internal.util.XmlUtils;
 import com.android.launcher2.LauncherSettings.Favorites;
@@ -71,6 +72,10 @@ public class LauncherProvider extends ContentProvider {
     
     static final String TABLE_FAVORITES = "favorites";
     static final String PARAMETER_NOTIFY = "notify";
+    
+    // Screen Settings
+    public static final String SCREENSETTINGS = "NUM_SCREENS";
+    static int mNumScreen; 
 
     /**
      * {@link Uri} triggered at any registered {@link android.database.ContentObserver} when
@@ -619,6 +624,45 @@ public class LauncherProvider extends ContentProvider {
             }
         }
 
+        XmlResourceParser getDefaultWorkspace(){
+
+        	try{
+        		mNumScreen = Settings.System.getInt( mContext.getContentResolver() , SCREENSETTINGS) ;
+        	
+        	} catch (SettingNotFoundException e) {
+
+        		// TODO Auto-generated catch block
+        	e.printStackTrace();
+        	mNumScreen = 7;
+        	
+          	}
+         
+        if( mNumScreen == 3)
+        {
+        return mContext.getResources().getXml(R.xml.default_workspace_3);
+        }
+        else if(mNumScreen == 5)
+        {
+                     return mContext.getResources().getXml(R.xml.default_workspace_5);
+        }
+        else 
+        {
+        return mContext.getResources().getXml(R.xml.default_workspace_7);
+        }
+
+
+
+
+        }
+
+            boolean toBool(int i){
+             if(i == 0)
+             return false;
+             else
+             return true;
+            
+            }
+
         /**
          * Loads the default set of favorite packages from an xml file.
          *
@@ -631,8 +675,9 @@ public class LauncherProvider extends ContentProvider {
 
             PackageManager packageManager = mContext.getPackageManager();
             int i = 0;
-            try {
-                XmlResourceParser parser = mContext.getResources().getXml(R.xml.default_workspace);
+            try {	
+            	//XmlResourceParser parser = mContext.getResources().getXml(R.xml.default_workspace_3);
+        		XmlResourceParser parser = getDefaultWorkspace();
                 AttributeSet attrs = Xml.asAttributeSet(parser);
                 XmlUtils.beginDocument(parser, TAG_FAVORITES);
 

@@ -312,7 +312,7 @@ public final class Launcher extends Activity
     	
 	try{
 	
-		NUM_SCREENS = Settings.System.getInt( getContentResolver() , SCREENSETTINGS) ;
+	NUM_SCREENS = Settings.System.getInt( getContentResolver(), Settings.System.SCREEN_SETTINGS) ;
     	Log.d(TAG, "The number of screens is " + NUM_SCREENS);
 	
 	} catch (SettingNotFoundException e) {

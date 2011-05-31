@@ -61,15 +61,31 @@ public class LauncherDisk extends View{
 	private TimerTask spin = new SpinTimer();
 
 	private Drawable mDisk;
-	private ArrayList<ImageButton> mSections;
+	private final int CENTER_BUTTON_SIZE = 50;
+	private ArrayList<DiskSection> mSections = new ArrayList<DiskSection>();
 	private boolean mSpinRight;
+	private double mCurrentRotation = 0;
 	
 
-	public void onCreate(Bundle savedInstanceState) {
-		
+	public LauncherDisk(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		initSections();
+	}
+	
+	public void initSections() {
+		for (int i = 45; i <= 360; i+=45) {
+			//Creates the button in the outermost disk at that angle
+			int firstSize = getWidth() - CENTER_BUTTON_SIZE + .5; //.5 rounds it off correctly
+			mSections.add(new DiskSection(Math.toRadians(i), firstSize);
+			//Creates the button in the middle disk at that angle
+			int otherSize = getWidth() - (firstSize + CENTER_BUTTON_SIZE);
+			mSections.add(new DiskSection(Math.toRadians(i), otherSize);
+		}
+		//Creating the center button
+		mSections.add(0, new DiskSection(0, CENTER_BUTTON_SIZE), 2*Math.PI);
 	}
 
-	public boolean OnTouchEvent(MotionEvent ev) {
+	public boolean onTouchEvent(MotionEvent ev) {
 		
 		final int action = ev.getAction();
 		
@@ -77,13 +93,29 @@ public class LauncherDisk extends View{
 		int timeCounter = 0;
 		//The period of time in milliseconds before the timer fires the spinTimerTask
 		final int TIMER_PERIOD = 250;
+		//The button that was pressed
+		DiskSection selectedButton;
+		
+		double x =  event.getX() - getWidth() / 2.0;
+		double y = - ( event.getY() - getHeight() / 2.0);        
+		// Compare this to the radii that mark the rings
+		double distFromOrig = Math.sqrt( x*x + y*y );
+		// Compare this to the angles of your slices (in radians)
+		double angle = Math.atan2(y, x);
 
 		switch (action) {
-			
-			//Unless the finger is dragged, don't do anything:
 			case MotionEvent.ACTION_DOWN: break;
-			case MotionEvent.ACTION_UP: break;
-			case MotionEvent.ACTION_MOVE: {
+			//If a button is pushed and released, find what button was pushed
+			case MotionEvent.ACTION_UP:
+				for(DiskSection ds : mSections) {
+					if ((angle >= ds.getAngle() && angle <= ds.getEndAngle()) && distFromOrig >= ds.getDistance()) {
+						selectedButton = ds;
+						break;
+					}
+				}
+				break;
+			//If the finger is drageed, SPIN IT
+			case MotionEvent.ACTION_MOVE:
 				if(differenceX < 0) 
 					mSpinRight = false;
 				else
@@ -91,7 +123,9 @@ public class LauncherDisk extends View{
 				break;
 		}
 		
-		timer.scheduleAtFixedRate(spin, 0, TIMER_PERIOD);			
+		timer.scheduleAtFixedRate(spin, 0, TIMER_PERIOD);		
+
+		return true;        
 	}
 
 	//Spins the disk using an algorithm to predict when it should stop, and how much acceleration there is
@@ -103,11 +137,15 @@ public class LauncherDisk extends View{
 		double time = timeCounter / TIMER_PERIOD;
 
 		if(mSpinRight)
-			while(timeCounter < findGreatestRoot(differenceX)
-				/*mDisk Rotation*/ += (-16 * timeCounter) + (ACCELERATION * timeCounter) + Math.abs(differenceX);
+			while(timeCounter < findGreatestRoot(differenceX) {
+				mCurrentRotation += (-16 * timeCounter) + (ACCELERATION * timeCounter) + Math.abs(differenceX);
+				setRotation(mCurrentRotation);
+			}
 		else
-			while(timeCounter < findGreatestRoot(differenceX)
-				/*mDisk Rotation*/ -= (-16 * timeCounter) + (ACCELERATION * timeCounter) + Math.abs(differenceX);
+			while(timeCounter < findGreatestRoot(differenceX) {
+				mCurrentRotation -= (-16 * timeCounter) + (ACCELERATION * timeCounter) + Math.abs(differenceX);
+				setRotation(mCurrentRotation);
+			}
 
 		timeCounter++;		
 	}

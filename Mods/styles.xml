@@ -36,7 +36,7 @@
         <item name="android:layout_marginTop">4dip</item>
         <item name="android:background">@drawable/hotseat_bg_right</item>
     </style>
-    <style name="HotseatButton.Stark">
+   <!-- <style name="HotseatButton.Stark">
 	<item name="android:paddingTop">12dip</item>
         <item name="android:paddingBottom">12dip</item>
         <item name="android:background">@drawable/hotseat_bg_stark</item>
@@ -45,7 +45,7 @@
         <item name="android:scaleType">center</item>
         <item name="android:focusable">true</item>
         <item name="android:clickable">true</item>
-    </style>
+    </style> -->
 
 </resources>
 

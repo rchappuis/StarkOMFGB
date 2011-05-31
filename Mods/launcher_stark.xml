@@ -96,31 +96,12 @@
         android:layout_gravity="right|center_vertical"
         android:layout_marginBottom="@dimen/half_status_bar_height"
         >
-
-        <com.android.launcher2.LauncherDisk
-            android:id="@+id/outer_shortcut_disk"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-
-            android:src="@drawable/disk_center_apps"
-            />
-
-        <com.android.launcher2.LauncherDisk
-            android:id="@+id/inner_shortcut_disk"
-            android:layout_centerVertical="true"
-            android:layout_above="@id/outer_shortcut_disk"
-	    android:layout_below="@id/outer_shortcut_disk"
-
-            android:src="@drawable/disk_center_apps"
-            />
-
-	<ImageView
-            android:id="@+id/app_drawer_shortcut"
-	    android:layout_above="@id/outer_shortcut_disk"
-	    android:layout_below="@id/inner_shortcut_disk"
-	    android:src="@drawable/disk_appdrawer"
-	    android:onClick=""
-            />
+	    
+	<View class="com.android.launcher2.LauncherDisk" 
+	    android:layout_width="wrap_content" 
+	    android:layout_height="wrap_content"
+	    android:src="@drawable/disk_full"
+	    />
 		
 
         <ImageView

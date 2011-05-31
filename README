@@ -22,6 +22,8 @@
 /packages/apps/Launcher2/src/com/android/launcher2/LauncherDisk.java
 	-A custom view responsible for handling a single disk- therefore, there are 2 in the xml file
 
+/packages/apps/Launcher2/src/com/android/launcher2/DiskSection.java
+	-A single button out of the entire LauncherDisk. Mainly used to section off each button.
+
 To do:
-Activate the theme if the god mode option is selected: inflate it in Workspace.java
-Design the center disk to do what I want
+Get graphics, and get the current code to compile

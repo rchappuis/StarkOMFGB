@@ -1,6 +1,3 @@
-/packages/apps/Launcher2/res/values-land/styles.xml
-	-Added my own style - HotseatButtonStyle.Stark
-
 /frameworks/base/core/java/android/provider/Settings.java
 	-Added a String for my God Mode option at line 2675
 
@@ -13,10 +10,10 @@
 /packages/apps/God_Mode/src/com/t3hh4xx0r/god_mode/UiOptions.java
 	-Just kinda guessing on this one: a string at line 27 and an if at line 73
 
-/packages/apps/Launcher2/res/layout-port/launcher_stark.xml
+/packages/apps/Launcher2/res/layout-port/stark_port_launcher.xml
 	-The themed launcher in portrait
 
-/packages/apps/Launcher2/res/layout-land/launcher_stark.xml
+/packages/apps/Launcher2/res/layout-land/stark_land_launcher.xml
 	-The themed launcher in landscape
 
 /packages/apps/Launcher2/src/com/android/launcher2/LauncherDisk.java
@@ -26,4 +23,7 @@
 	-A single button out of the entire LauncherDisk. Mainly used to section off each button.
 
 To do:
-Get graphics, and get the current code to compile
+- Get graphics for disk
+- Connect God Mode option to setting the style
+- Get icons and 'shortcuts' to open apps off disk
+- Get the current code to compile

@@ -123,6 +123,7 @@ public class LauncherDisk extends View{
 				break;
 		}
 		
+		ds.clicked();
 		timer.scheduleAtFixedRate(spin, 0, TIMER_PERIOD);		
 
 		return true;        

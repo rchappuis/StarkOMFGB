@@ -1110,6 +1110,12 @@ public final class Settings {
         public static final String RADIO_CELL = "cell";
 
         /**
+         * Constant for use in AIRPLANE_MODE_RADIOS to specify WiMAX radio.
+         * @hide
+         */
+        public static final String RADIO_WIMAX = "wimax";
+
+        /**
          * A comma separated list of radios that need to be disabled when airplane mode
          * is on. This overrides WIFI_ON and BLUETOOTH_ON, if Wi-Fi and bluetooth are
          * included in the comma separated list.
@@ -1711,114 +1717,12 @@ public final class Settings {
         public static final String FANCY_IME_ANIMATIONS = "fancy_ime_animations";
 
         /**
-         * Whether WebViews reflow content when zooming in by pinching. The value is
-         * boolean (1 or 0).
-         * @hide
-         */
-        public static final String WEB_VIEW_PINCH_REFLOW = "web_view_pinch_reflow";
-
-        /**
          * Control whether the accelerometer will be used to change screen
          * orientation.  If 0, it will not be used unless explicitly requested
          * by the application; if 1, it will be used by default unless explicitly
          * disabled by the application.
          */
         public static final String ACCELEROMETER_ROTATION = "accelerometer_rotation";
-        
-        /**
-         * Specifies the number of recent apps to show (8, 12, 16)
-         * @hide
-         */
-        public static final String RECENT_APPS_NUMBER = "recent_apps_number";
-        
-        /**
-         * Specifies the number of recent apps to show (8, 12, 16)
-         * @hide
-         */
-        public static final String RECENT_APPS_SHOW_TITLE = "recent_apps_show_title";
-        
-        /**
-         * Specifies whether or not to use a custom app instead of the recent applications dialog
-         * @hide
-         */
-        public static final String USE_CUSTOM_APP = "use_custom_app";
-        
-        /**
-         * Stores the uri of the custom application to use
-         * @hide
-         */
-        public static final String SELECTED_CUSTOM_APP = "selected_custom_app";
-
-        /**
-         * Stores the uri of the defined application for user key 1
-         * @hide
-         */
-        public static final String USER_DEFINED_KEY1_APP = "user_defined_key1_app";
-
-        /**
-         * Stores the uri of the defined application for user key 2
-         * @hide
-         */
-        public static final String USER_DEFINED_KEY2_APP = "user_defined_key2_app";
-
-        /**
-         * Stores the uri of the defined application for user key 3
-         * @hide
-         */
-        public static final String USER_DEFINED_KEY3_APP = "user_defined_key3_app";
-
-        /**
-         * Specifies whether to prompt on the power dialog
-         * @hide
-         */
-        public static final String POWER_DIALOG_PROMPT = "power_dialog_prompt";
-
-	/**
-	 * Specifies whether to use stock offset layout on lockscreen
-	 * or centered OMFGB layout
-	 * @hide
-	 */
-	public static final String USE_STOCK_LOCKSCREEN_LAYOUT = "use_stock_lockscreen_layout";
-
-        /**
-         * How many ms to delay before enabling the screen lock when the screen
-         * goes off due to timeout
-         *
-         * @hide
-         */
-        public static final String SCREEN_LOCK_TIMEOUT_DELAY = "screen_lock_timeout_delay";
-
-        /**
-         * How many ms to delay before enabling the screen lock when the screen
-         * is turned off by the user
-         *
-         * @hide
-         */
-        public static final String SCREEN_LOCK_SCREENOFF_DELAY = "screen_lock_screenoff_delay";
-
-	/** 
-	 * Whether to enable the volume button music controls or not
-	 * @hide
-	 */
-	public static final String ENABLE_VOL_MUSIC_CONTROLS = "enable_vol_music_controls";
-
-	/**
-	 * Whether to wake the screen with the trackpad
-	 * @hide
-	 */
-	public static final String TRACKPAD_WAKE_SCREEN = "trackpad_wake_screen";
-
-	/** 
-	 * Whether to unlock the phone with the trackpad
-	 * @hide
-	 */
-	public static final String TRACKPAD_UNLOCK_SCREEN = "trackpad_unlock_screen";
-
-	/**
-	 * Whether to always show battery status on lockscreen
- 	 * @hide
-	 */
-	public static final String LOCKSCREEN_ALWAYS_BATTERY = "lockscreen_always_battery";
 
         /**
          * Whether the audible DTMF tones are played by the dialer when dialing. The value is
@@ -1881,72 +1785,6 @@ public final class Settings {
          * boolean (1 or 0).
          */
         public static final String HAPTIC_FEEDBACK_ENABLED = "haptic_feedback_enabled";
-
-        /**
-         * Whether haptic feedback is enabled on virtual key release (as opposed to pressed)
-         * boolean (1 or 0).
-         * @hide
-         */
-        public static final String HAPTIC_FEEDBACK_UP_ENABLED = "haptic_feedback_up_enabled";
-
-        /**
-         * Whether haptic is also activated for all screen interaction (follows Sound Effects Enabled behaviour)
-         * boolean (1 or 0).
-         * @hide
-         */
-        public static final String HAPTIC_FEEDBACK_ALL_ENABLED = "haptic_feedback_all_enabled";
-
-        /**
-         * Value for haptic down (string will be converted to array -
-         * format is ***"delay in msec before turning on"_"delay in msec before turning off__**repeat**)
-         * @hide
-         */
-        public static final String HAPTIC_DOWN_ARRAY = "haptic_down_array";
-
-        /**
-         * Value for haptic up - same format as _DOWN_ARRAY
-         * @hide
-         */
-        public static final String HAPTIC_UP_ARRAY = "haptic_up_array";
-        
-        /**
-         * Value for long presses - same format as _DOWN_ARRAY
-         * @hide
-         */
-        public static final String HAPTIC_LONG_ARRAY = "haptic_long_array";
-
-        /**
-         * these store the ORIGINAL default haptic values from config.xml
-         * this is so HapticAdjust can easily pull them when resetting defaults
-         * these are created and acted on in PhoneWindowManager
-         * @hide
-         */
-        public static final String HAPTIC_DOWN_ARRAY_DEFAULT = "haptic_down_array_default";
-
-        /**
-         * Same as HAPTIC_DOWN_ARRAY_DEFAULT but for key releases
-         * @hide
-         */
-        public static final String HAPTIC_UP_ARRAY_DEFAULT = "haptic_up_array_default";
-
-        /**
-         * Same as HAPTIC_DOWN_ARRAY_DEFAULT but for key releases
-         * @hide
-         */
-        public static final String HAPTIC_LONG_ARRAY_DEFAULT = "haptic_long_array_default";
-
-        /**
-         * Set values for haptic feedback from typing on keypad (new for Froyo)
-         * @hide
-         */
-        public static final String HAPTIC_TAP_ARRAY = "haptic_tap_array";
-
-        /**
-         * Default values for haptic feedback from typing on keypad (new for Froyo) - pulled
-         * from config.xml
-         * @hide
-         */
-        public static final String HAPTIC_TAP_ARRAY_DEFAULT = "haptic_tap_array_default";
 
         /**
          * Whether live web suggestions while the user types into search dialogs are
@@ -2094,192 +1932,121 @@ public final class Settings {
         public static final String TORCH_STATE = "torch_state";
 
         /**
-         * Whether to keep the home app at a higher OOM adjustement
+         * Whether to show the CM battery percentage implementation instead
+         * of the stock battery icon
+         * 0: don't show / show stock icon instead
+         * 1: show cm battery / dont show stock icon
+         * default: 0
          * @hide
          */
-        public static final String LOCK_HOME_IN_MEMORY = "lock_home_in_memory";
+        public static final String STATUS_BAR_CM_BATTERY = "status_bar_cm_battery";
+
+	/*
+	 * Whether to show the clock in the status bar
+	 * of the stock battery icon
+	 * 0: don't show the clock
+	 * 1: show the clock
+	 * default: 1
+	 * @hide
+	 */
+	public static final String STATUS_BAR_CLOCK = "status_bar_clock";
 
         /**
-         * Whether to keep the messaging app at a higher OOM adjustement
+         * Whether to always show battery status
          * @hide
          */
-        public static final String LOCK_MMS_IN_MEMORY = "lock_mms_in_memory";
-
+        public static final String LOCKSCREEN_ALWAYS_BATTERY = "lockscreen_always_battery";
+ 
         /**
-         * Whether to wake the screen with the trackball. The value is boolean (1 or 0).
-         * @hide
-         */
-        public static final String TRACKBALL_WAKE_SCREEN = "trackball_wake_screen";
-
-        /**
-         * Whether to unlock the screen with the trackball.  The value is boolean (1 or 0).
-         * @hide
-         */
-        public static final String TRACKBALL_UNLOCK_SCREEN = "trackball_unlock_screen";
-
-        /**
-         * Whether to use the custom quick unlock screen control
-         * @hide
-         */
-        public static final String LOCKSCREEN_QUICK_UNLOCK_CONTROL =
-            "lockscreen_quick_unlock_control";
-
-        /**
-         * Whether to use the custom Phone and Messaging SlidingTab
-         * @hide
-         */
-        public static final String LOCKSCREEN_PHONE_MESSAGING_TAB = "lockscreen_phone_messaging_tab";
-
-     	/**
-         * Specifies whether to show AM/PM indicators for 12-hour.
-         * @hide
-         */
-    	public static final String SHOW_CLOCK_AMPM = "status_clock_format";
-        
-     	/**
-         * Specifies whether to show status clock: 0 or 1
-         * @hide
-         */
-    	public static final String SHOW_CLOCK = "show_status_clock";
-    	
-        /**
-         * App to launch with the custom messaging tab
-         * @hide
-         */
-        public static final String LOCKSCREEN_MESSAGING_TAB_APP = "lockscreen_messaging_tab_app";
-
-        /**
-         * Sets the lockscreen style
-         * @hide
-         */
-        public static final String LOCKSCREEN_STYLE_PREF = "lockscreen_style_pref";
-
-        /**
-         * Pulse the Trackball with Screen On.  The value is boolean (1 or 0).
-         * @hide
-         */
-        public static final String TRACKBALL_SCREEN_ON = "trackball_screen_on";
-
-         /**
-          * Pulse notifications in Succession.  The value is boolean (1 or 0).
-          * @hide
-          */
-         public static final String TRACKBALL_NOTIFICATION_SUCCESSION = "trackball_sucession";
-
-         /**
-          * Pulse notifications in Succession.  The value is boolean (1 or 0).
-          * @hide
-          */
-         public static final String TRACKBALL_NOTIFICATION_RANDOM = "trackball_random_colors";
-
-         /**
-          * Pulse notifications in Succession.  The value is boolean (1 or 0).
-          * @hide
-          */
-         public static final String TRACKBALL_NOTIFICATION_PULSE_ORDER = "trackball_pulse_in_order";
+	 * Whether lockscreen shortcuts should be shown on lockscreen
+	 * @hide
+	 */
+	public static final String LOCKSCREEN_SHORTCUTS = "lockscreen_shortcuts";
 
 	/**
-          * Beldn Notification Colors.  The value is boolean (1 or 0).
-          * @hide
-          */
-         public static final String TRACKBALL_NOTIFICATION_BLEND_COLOR = "trackball_blend_color";
+	 * Whether to enable music controls on the volume controls
+	 * @hide
+	 */
+	public static final String ENABLE_VOL_MUSIC_CONTROLS = "enable_vol_music_controls";
 
-        /**
-         * Trackball Notification Colors. The value is String  pkg=color|pkg=color
-         * @hide
-         */
-        public static final String NOTIFICATION_PACKAGE_COLORS = "|";
+	/**
+	 * Whether to wake the screen with trackpad
+	 * @hide
+	 */
+	public static final String TRACKPAD_WAKE_SCREEN = "trackpad_wake_screen";
 
-        /**
-         * Trackball Notification List. The value is String  pkg|pkg
-         * @hide
-         */
-        public static final String NOTIFICATION_PACKAGE_LIST = "|";
+        /** 
+	 * Volume button screen wake setting (from CM)
+	 * @hide
+	 */
+	public static final String VOLUME_WAKE_SCREEN = "volume_wake_screen";
 
-        /**
-         * Trackball Notification Colors Debugging. The value is boolean (1 or 0)
-         * @hide
-         */
-        public static final String NOTIFICATION_PACKAGE_COLORS_GET_PACK = "0";
+	/**
+	 * Whether to enable trackpad unlock
+	 * @hide
+	 */
+	public static final String TRACKPAD_UNLOCK_SCREEN = "trackpad_unlock_screen";
 
-        /**
-         * Whether to unlock the menu key.  The value is boolean (1 or 0).
-         * @hide
-         */
-        public static final String MENU_UNLOCK_SCREEN = "menu_unlock_screen";
+	/**
+	 * Whether to enable menu unlock
+	 * @hide
+	 */
+	public static final String MENU_UNLOCK_SCREEN = "menu_unlock_screen";
 
-        /**
-         * Whether to enable quiet hours.
-         * @hide
-         */
-        public static final String QUIET_HOURS_ENABLED = "quiet_hours_enabled";
+	/**
+	 * Screen setting for launcher mods
+	 * @hide
+	 */
+	public static final String SCREEN_SETTINGS = "NUM_SCREENS";
 
-        /**
-         * Sets when quiet hours starts. This is stored in minutes from the start of the day.
-         * @hide
-         */
-        public static final String QUIET_HOURS_START = "quiet_hours_start";
+	/**
+	 * Launcher 2 Package
+	 * @hide
+	 */
+	public static final String LAUNCHER_2_PACKAGE = "com.android.launcher";
 
-        /**
-         * Sets when quiet hours end. This is stored in minutes from the start of the day.
-         * @hide
-         */
-        public static final String QUIET_HOURS_END = "quiet_hours_end";
+	/**
+	 * Sets Launcher to continuously loop from one end of the 
+	 * workspace to the other.
+	 * @hide
+	 */
+	public static final String LAUNCHER_ENDLESS_LOOP = "launcher_endless_loop";
 
-        /**
-         * Whether to remove the sound from outgoing notifications during quiet hours.
-         * @hide
-         */
-        public static final String QUIET_HOURS_MUTE = "quiet_hours_mute";
+	/**
+	 * Carrier caption option
+	 * @hide
+	 */
+	public static final String CARRIER_CAP = "carrier_caption";
 
-        /**
-         * Whether to remove the vibration from outgoing notifications during quiet hours.
-         * @hide
-         */
-        public static final String QUIET_HOURS_STILL = "quiet_hours_still";
+	/**
+	 * Electron beam animation
+	 * @hide
+	 */
+	public static final String USE_SCREENON_ANIM = "use_screenon_anim";
+	
+	/**
+	 * Electron beam animation
+	 * @hide
+	 */
+	public static final String USE_SCREENOFF_ANIM = "use_screenoff_anim"; 
+	
+	/**
+	 * Stark launcher option
+	 * @hide
+	 */
+	public static final String USE_STARK_THEME = "use_stark_theme";
 
-        /**
-         * Whether to attempt to dim the LED color during quiet hours.
-         * @hide
-         */
-        public static final String QUIET_HOURS_DIM = "quiet_hours_dim";
+	/**
+	* Use rotary lockscreen instead of tab unlock screen
+	* @hide
+	*/
+	public static final String USE_ROTARY_LOCKSCREEN = "use_rotary_lockscreen";
 
-        /**
-         * Whether to use custom notification bar
-         * @hide
-         */
-        public static final String LOCKSCREEN_MUSIC_CONTROLS = "lockscreen_music_controls";
-
-        /**
-         * Whether to use custom notification bar
-         * @hide
-         */
-        public static final String LOCKSCREEN_ALWAYS_MUSIC_CONTROLS = "lockscreen_always_music_controls";
-        
-        /**
-         * Whether to listen for gestures on the lockscreen
-         * @hide
-         */
-        public static final String LOCKSCREEN_GESTURES_ENABLED = "lockscreen_gestures_enabled";
-
-        /**
-         * Whether to show the gesture trail on the lockscreen
-         * @hide
-         */
-        public static final String LOCKSCREEN_GESTURES_TRAIL = "lockscreen_gestures_trail";
-
-        /**
-         * Sensitivity for parsing gestures on the lockscreen
-         * @hide
-         */
-        public static final String LOCKSCREEN_GESTURES_SENSITIVITY = "lockscreen_gestures_sensitivity";
-
-        /**
-         * Color value for gestures on lockscreen
-         * @hide
-         */
-        public static final String LOCKSCREEN_GESTURES_COLOR = "lockscreen_gestures_color";
-
+	/**
+	* @hide
+	*/
+	public static final String BATTERY_OPTION = "battery_option";
+       
         /**
          * Use the Notification Power Widget? (Who wouldn't!)
          *
@@ -2407,24 +2174,6 @@ public final class Settings {
             NOTIFICATION_LIGHT_BLINK,
             NOTIFICATION_LIGHT_ALWAYS_ON,
             NOTIFICATION_LIGHT_CHARGING,
-            QUIET_HOURS_ENABLED,
-            QUIET_HOURS_START,
-            QUIET_HOURS_END,
-            QUIET_HOURS_MUTE,
-            QUIET_HOURS_STILL,
-            QUIET_HOURS_DIM,
-            HAPTIC_FEEDBACK_UP_ENABLED,
-            HAPTIC_FEEDBACK_ALL_ENABLED,
-            HAPTIC_DOWN_ARRAY,
-            HAPTIC_UP_ARRAY,
-            HAPTIC_LONG_ARRAY,
-            HAPTIC_DOWN_ARRAY_DEFAULT,
-            HAPTIC_UP_ARRAY_DEFAULT,
-            HAPTIC_LONG_ARRAY_DEFAULT,
-            HAPTIC_TAP_ARRAY,
-            HAPTIC_TAP_ARRAY_DEFAULT,
-            LOCKSCREEN_GESTURES_SENSITIVITY,
-            LOCKSCREEN_GESTURES_COLOR
         };
 
         // Settings moved to Settings.Secure
@@ -2656,36 +2405,6 @@ public final class Settings {
         @Deprecated
         public static final String WIFI_WATCHDOG_PING_TIMEOUT_MS =
             Secure.WIFI_WATCHDOG_PING_TIMEOUT_MS;
-
-        /** Constants for God Mode */
-		public static final String LOCKSCREEN_ALBUM_ART = "lockscreen_album_art";
-        
-	        public static final String LOCKSCREEN_NOW_PLAYING = "lockscreen_now_playing";
-
-		public static final String CARRIER_CAP = "carrier_caption";
-		
-		public static final String RIGHT_AB = "rightaction_button";
-		
-		public static final String LEFT_AB = "rightaction_button";
-		
-		public static final String USE_STOCK_LAUNCHER = "use_stock_launcher";
-		
-		public static final String USE_ROTARY_LOCKSCREEN = "use_rotary_lockscreen";
-
-		public static final String USE_STARK_THEME = "use_stark_theme";
-		
-		public static final String USE_SCREENON_ANIM = "use_screenon_anim";
-		
-		public static final String USE_SCREENOFF_ANIM = "use_screenoff_anim";
-		
-		public static final String BATTERY_OPTION = "battery_option";
-		
-                public static final String USE_2D_LAUNCHER = "use_2d_app_view";
-                
-                public static final String SCREEN_SETTINGS = "NUM_SCREENS";
-                
-                public static final String LAUNCHER_2_PACKAGE = "com.android.launcher";
-
     }
 
     /**
@@ -2997,6 +2716,14 @@ public final class Settings {
         }
 
         /**
+         * Get the key that retrieves a bluetooth hid device's priority.
+         * @hide
+         */
+        public static final String getBluetoothHidDevicePriorityKey(String address) {
+            return ("bluetooth_hid_device_priority_" + address.toUpperCase());
+        }
+
+        /**
          * Whether or not data roaming is enabled. (0 = false, 1 = true)
          */
         public static final String DATA_ROAMING = "data_roaming";
@@ -3061,48 +2788,6 @@ public final class Settings {
          */
         public static final String LOCK_PATTERN_TACTILE_FEEDBACK_ENABLED =
             "lock_pattern_tactile_feedback_enabled";
-
-        /**
-         * LOCK_DOTS_VISIBLE
-         * @hide
-         */
-        public static final String LOCK_DOTS_VISIBLE = "lock_pattern_dotsvisible";
-
-        /**
-         * LOCK_SHOW_ERROR_PATH
-         * @hide
-         */
-        public static final String LOCK_SHOW_ERROR_PATH = "lock_pattern_show_error_path";
-
-        /**
-         * LOCK_INCORRECT_DELAY
-         * @hide
-         */
-        public static final String LOCK_INCORRECT_DELAY = "lock_pattern_incorrect_delay";
-
-        /**
-         * SHOW_UNLOCK_TEXT
-         * @hide
-         */
-        public static final String SHOW_UNLOCK_TEXT = "lock_pattern_show_unlock_text";
-
-        /**
-         * SHOW_UNLOCK_ERR_TEXT
-         * @hide
-         */
-        public static final String SHOW_UNLOCK_ERR_TEXT = "lock_pattern_show_unlock_err_text";
-
-        /**
-         * LOCK_SHOW_CUSTOM_MSG
-         * @hide
-         */
-        public static final String LOCK_SHOW_CUSTOM_MSG = "lock_screen_show_custom_msg";
-
-        /**
-         * LOCK_CUSTOM_MSG
-         * @hide
-         */
-        public static final String LOCK_CUSTOM_MSG = "lock_screen_custom_msg";
 
         /**
          * Whether assisted GPS should be enabled or not.
@@ -3257,6 +2942,14 @@ public final class Settings {
                 "wifi_networks_available_repeat_delay";
 
         /**
+         * Whether to nofity the user of WiMAX network.
+         * If WiMAX is connected or disconnected, we will put this notification up.
+         * @hide
+         */
+        public static final String WIMAX_NETWORKS_AVAILABLE_NOTIFICATION_ON =
+                "wimax_networks_available_notification_on";
+
+        /**
          * The number of radio channels that are allowed in the local
          * 802.11 regulatory domain.
          * @hide
@@ -3391,6 +3084,12 @@ public final class Settings {
          */
         public static final String WIFI_MOBILE_DATA_TRANSITION_WAKELOCK_TIMEOUT_MS =
             "wifi_mobile_data_transition_wakelock_timeout_ms";
+
+        /**
+         * Whether the Wimax should be on.  Only the WiMAX service should touch this.
+         * @hide
+         */
+        public static final String WIMAX_ON = "wimax_on";
 
         /**
          * Whether background data usage is allowed by the user. See
@@ -4165,31 +3864,12 @@ public final class Settings {
                 "inet_condition_debounce_down_delay";
 
         /**
-         * Whether to allow move of any app to external storage
-         * @hide
-         */
-        public static final String ALLOW_MOVE_ALL_APPS_EXTERNAL =
-                "allow_move_all_apps_external";
-
-        /**
          * Whether to allow killing of the foreground process by long-pressing
          * the device's BACK button.
          * @hide
          */
         public static final String KILL_APP_LONGPRESS_BACK = "kill_app_on_longpress_back";
         
-        /**
-         * Whether to disable the lockscreen unlock tab
-         * @hide
-         */
-        public static final String LOCKSCREEN_GESTURES_DISABLE_UNLOCK = "lockscreen_gestures_disable_unlock";
-
-        /**
-         * Virtual network roaming
-         * @hide
-         */
-        public static final String MVNO_ROAMING = "button_mvno_roaming_key";
-
         /**
          * @hide
          */

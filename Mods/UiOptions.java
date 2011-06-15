@@ -25,24 +25,35 @@ import android.provider.Settings.SettingNotFoundException;
 public class UiOptions extends PreferenceActivity implements OnPreferenceChangeListener {
 
 	private static final String USE_STARK_THEME = "use_stark_theme";
-	private static final String USE_SCREENON_ANIM = "use_screenon_anim";
-	private static final String USE_SCREENOFF_ANIM = "use_screenoff_anim";
+	private static final String ELECTRON_BEAM_ANIMATION_ON = "electron_beam_animation_on";
+	private static final String ELECTRON_BEAM_ANIMATION_OFF = "electron_beam_animation_off";
 	private static final String BATTERY_OPTION = "battery_option";
 	private static final String ENABLE_VOL_MUSIC_CONTROLS = "enable_vol_music_controls";
         private static final String UI_EXP_WIDGET = "expanded_widget";
+        private static final String UI_EXP_WIDGET_HIDE_ONCHANGE = "expanded_hide_onchange";
         private static final String UI_EXP_WIDGET_COLOR = "expanded_color_mask";
+        private static final String UI_EXP_WIDGET_ORDER = "widget_order";
         private static final String UI_EXP_WIDGET_PICKER = "widget_picker";
-	
+        private static final String OVERSCROLL_PREF = "pref_overscroll_effect";
+        private static final String OVERSCROLL_WEIGHT_PREF = "pref_overscroll_weight";	
+
 	private CheckBoxPreference mUseStarkTheme;
 	private CheckBoxPreference mUseScreenOnAnim;
 	private CheckBoxPreference mUseScreenOffAnim;
 	private ListPreference mBatteryOption;
 	private CheckBoxPreference mEnableVolMusicControls;
         private CheckBoxPreference mPowerWidget;
+        private CheckBoxPreference mPowerWidgetHideOnChange;
+
+        private ListPreference mOverscrollPref;
+        private ListPreference mOverscrollWeightPref;
+
         private Preference mPowerWidgetColor;
         private PreferenceScreen mPowerPicker;
+        private PreferenceScreen mPowerOrder;
 
-	
+
+
 	@Override
     public void onCreate(Bundle savedInstanceState) {	
 		super.onCreate(savedInstanceState);
@@ -50,21 +61,31 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
 		PreferenceScreen prefSet = getPreferenceScreen();
 
 		mUseStarkTheme = (CheckBoxPreference)prefSet.findPreference(USE_STARK_THEME);
-		mUseScreenOnAnim = (CheckBoxPreference)prefSet.findPreference(USE_SCREENON_ANIM);
-		mUseScreenOnAnim.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.USE_SCREENON_ANIM, 1) == 0);
-		mUseScreenOffAnim = (CheckBoxPreference)prefSet.findPreference(USE_SCREENOFF_ANIM);
-		mUseScreenOffAnim.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.USE_SCREENOFF_ANIM, 1) == 1);		
-		
+		mUseScreenOnAnim = (CheckBoxPreference)prefSet.findPreference(ELECTRON_BEAM_ANIMATION_ON);
+		mUseScreenOnAnim.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.ELECTRON_BEAM_ANIMATION_ON, 1) == 1);
+		mUseScreenOffAnim = (CheckBoxPreference)prefSet.findPreference(ELECTRON_BEAM_ANIMATION_OFF);
+		mUseScreenOffAnim.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.ELECTRON_BEAM_ANIMATION_OFF, 1) == 1);			
 		mBatteryOption = (ListPreference) prefSet.findPreference(BATTERY_OPTION);
 		mBatteryOption.setOnPreferenceChangeListener(this);
+		
 		mEnableVolMusicControls = (CheckBoxPreference) prefSet.findPreference(ENABLE_VOL_MUSIC_CONTROLS);
-		mEnableVolMusicControls.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.ENABLE_VOL_MUSIC_CONTROLS, 1) == 1);
-/* Expanded View Power Widget */
-                mPowerWidget = (CheckBoxPreference) prefSet.findPreference(UI_EXP_WIDGET);
-      	        mPowerWidgetColor = prefSet.findPreference(UI_EXP_WIDGET_COLOR);
-                mPowerPicker = (PreferenceScreen)prefSet.findPreference(UI_EXP_WIDGET_PICKER);
-		mPowerWidget.setChecked((Settings.System.getInt(getContentResolver(),
-		Settings.System.EXPANDED_VIEW_WIDGET, 1) == 1));
+		mEnableVolMusicControls.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.ENABLE_VOL_MUSIC_CONTROLS, 0) == 1);
+
+	        mPowerWidgetColor = prefSet.findPreference(UI_EXP_WIDGET_COLOR);
+	        mPowerPicker = (PreferenceScreen) prefSet.findPreference(UI_EXP_WIDGET_PICKER);
+	        mPowerOrder = (PreferenceScreen) prefSet.findPreference(UI_EXP_WIDGET_ORDER);
+
+	        /* Overscroll Effect */
+	        mOverscrollPref = (ListPreference) prefSet.findPreference(OVERSCROLL_PREF);
+	        int overscrollEffect = Settings.System.getInt(getContentResolver(),
+	                Settings.System.OVERSCROLL_EFFECT, 1);
+	        mOverscrollPref.setValue(String.valueOf(overscrollEffect));
+	        mOverscrollPref.setOnPreferenceChangeListener(this);
+	        mOverscrollWeightPref = (ListPreference) prefSet.findPreference(OVERSCROLL_WEIGHT_PREF);
+	        int overscrollWeight = Settings.System.getInt(getContentResolver(), Settings.System.OVERSCROLL_WEIGHT, 5);
+        	mOverscrollWeightPref.setValue(String.valueOf(overscrollWeight));
+	        mOverscrollWeightPref.setOnPreferenceChangeListener(this);
+
     }
 
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
@@ -72,17 +93,16 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
         
 	if(preference == mUseStarkTheme) {
 		value = mUseStarkTheme.isChecked();
-	    Settings.System.putInt(getContentResolver(), Settings.System.USE_STARK_THEME, value ? 1 : 0);
+	     Settings.System.putInt(getContentResolver(), Settings.System.USE_STARK_THEME, value ? 1 : 0);
 	}
-
         if (preference == mUseScreenOnAnim) {
         	value = mUseScreenOnAnim.isChecked();
-            Settings.System.putInt(getContentResolver(), Settings.System.USE_SCREENON_ANIM, value ? 1 : 0);
+            Settings.System.putInt(getContentResolver(), Settings.System.ELECTRON_BEAM_ANIMATION_ON, value ? 1 : 0);
         }
         
         if (preference == mUseScreenOffAnim) {
         	value = mUseScreenOffAnim.isChecked();
-            Settings.System.putInt(getContentResolver(), Settings.System.USE_SCREENOFF_ANIM, value ? 1 : 0);
+            Settings.System.putInt(getContentResolver(), Settings.System.ELECTRON_BEAM_ANIMATION_OFF, value ? 1 : 0);
         }
 
 	if (preference == mEnableVolMusicControls) {
@@ -90,33 +110,56 @@ public class UiOptions extends PreferenceActivity implements OnPreferenceChangeL
 	    Settings.System.putInt(getContentResolver(), Settings.System.ENABLE_VOL_MUSIC_CONTROLS, value ? 1 : 0);
 	}
 
-        if(preference == mPowerPicker) {
+        if (preference == mPowerPicker) {
             startActivity(mPowerPicker.getIntent());
         }
 
-	if(preference == mPowerWidget) {
-            value = mPowerWidget.isChecked();
-            Settings.System.putInt(getContentResolver(),
-                    Settings.System.EXPANDED_VIEW_WIDGET, value ? 1 : 0);
+        if (preference == mPowerOrder) {
+            startActivity(mPowerOrder.getIntent());
+        }
+
+        if (preference == mPowerWidgetColor) {
+            ColorPickerDialog cp = new ColorPickerDialog(this, mWidgetColorListener,
+                    readWidgetColor());
+            cp.show();
 	}
- 
+
         return true;
     }
 
     public boolean onPreferenceChange(Preference preference, Object objValue) {
         if (preference == mBatteryOption) {;
         	Settings.System.putInt(getContentResolver(), Settings.System.BATTERY_OPTION, Integer.valueOf((String) objValue));
+        } else if (preference == mOverscrollPref) {
+            int overscrollEffect = Integer.valueOf((String) objValue);
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.OVERSCROLL_EFFECT, overscrollEffect);
+            return true;
+        } else if (preference == mOverscrollWeightPref) {
+            int overscrollWeight = Integer.valueOf((String) objValue);
+            Settings.System.putInt(getContentResolver(), Settings.System.OVERSCROLL_WEIGHT, overscrollWeight);
+            return true;
         }
 
         return true;
     }
     
- private int readWidgetColor() {
+   private int readWidgetColor() {
         try {
-            return Settings.System.getInt(getContentResolver(), Settings.System.EXPANDED_VIEW_WIDGET_COLOR);
-        }
-        catch (SettingNotFoundException e) {
+            return Settings.System.getInt(getContentResolver(),
+                    Settings.System.EXPANDED_VIEW_WIDGET_COLOR);
+        } catch (SettingNotFoundException e) {
             return -16777216;
         }
     }
+
+    ColorPickerDialog.OnColorChangedListener mWidgetColorListener = new ColorPickerDialog.OnColorChangedListener() {
+        public void colorChanged(int color) {
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.EXPANDED_VIEW_WIDGET_COLOR, color);
+        }
+
+        public void colorUpdate(int color) {
+        }
+    };
 }

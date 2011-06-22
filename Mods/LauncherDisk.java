@@ -30,9 +30,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ProviderInfo;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.IBinder;
 import android.os.Parcel;
@@ -46,6 +48,7 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.animation.Interpolator;
+import android.widget.ImageView;
 import android.widget.Scroller;
 import android.widget.TextView;
 
@@ -54,18 +57,17 @@ import com.android.launcher.R;
 /**
 The Launcher Disk is central component to the Stark theme. It is used to scroll through apps and files depending on the screen you are at.
 **/
-public class LauncherDisk extends View{
+public class LauncherDisk extends ImageView{
 
 	private static final String TAG = "Launcher.LauncherDisk";
 	private static final float ACCELERATION = 0.5f;
 	private VelocityTracker mTracker;
 	//The period of time in milliseconds before the timer fires the spinTimerTask
 	final int TIMER_PERIOD = 250;
-	private Timer timer;
-	private TimerTask spin = new SpinTimer(this);
-	private int timeCounter;
+	//private Timer timer;
+	//private TimerTask spin = new SpinTimer(this);
+	//private int timeCounter;
 
-	private Drawable mDisk;
 	private final int CENTER_BUTTON_SIZE = 50;
 	private ArrayList<DiskSection> mSections = new ArrayList<DiskSection>();
 	private boolean mSpinRight;
@@ -95,8 +97,10 @@ public class LauncherDisk extends View{
 		
 		final int action = ev.getAction();
 		
-		//Used for keeping track of the amount of milliseconds gone by
-		timeCounter = 0;
+		//Used to determine/change rotation
+		double r = Math.atan2(ev.getX() - getWidth() / 2, getHeight() / 2 - ev.getY());
+            	int rotation = (int) Math.toDegrees(r);
+
 		//The button that was pressed
 		DiskSection selectedButton;
 		
@@ -114,6 +118,7 @@ public class LauncherDisk extends View{
 				for(DiskSection ds : mSections) {
 					if ((angle >= ds.getAngle() && angle <= ds.getEndAngle()) && distFromOrig >= ds.getDistance()) {
 						selectedButton = ds;
+						selectedButton.clicked();
 						break;
 					}
 
@@ -121,24 +126,24 @@ public class LauncherDisk extends View{
 				break;
 			//If the finger is drageed, SPIN IT
 			case MotionEvent.ACTION_MOVE:
-				if(differenceX < 0) 
+				/*if(differenceX < 0) 
 					mSpinRight = false;
 				else
-					mSpinRight = true;
+					mSpinRight = true;*/
+				updateRotation(rotation);
 				break;
 		}
 		
-		selectedButton.clicked();
 		//Find the range that was covered in the swipe- adjusts velocity of spin
-		differenceX = ev.getX() - ev.getRawX();
+		//differenceX = ev.getX() - ev.getRawX();
 
-		timer.scheduleAtFixedRate(spin, 0, TIMER_PERIOD);		
+		//timer.scheduleAtFixedRate(spin, 0, TIMER_PERIOD);		
 		return true;        
 	}
 
 	//Spins the disk using an algorithm to predict when it should stop, and how much acceleration there is
 	//http://stackoverflow.com/questions/1930963/rotating-a-view-in-android
-	public void spinDisk(View v) {
+	/*public void spinDisk(View v) {
 		//The amount of time passed since the start of the Timer
 		double time = timeCounter / TIMER_PERIOD;
 
@@ -168,7 +173,6 @@ public class LauncherDisk extends View{
 		//Returns the greater of the two roots
 		return Math.max(firstRoot, secondRoot);
 	}
-
 	private class SpinTimer extends TimerTask {
 		View v;
 		public SpinTimer(View iv) {
@@ -178,5 +182,19 @@ public class LauncherDisk extends View{
 		public void run() {
 			spinDisk(v);
 		}
-	}
+	}*/
+
+	//Sets the rotation, somehow (http://goo.gl/rrDBo)
+	private void updateRotation(double rot)
+    	{
+		float newRot = new Float(rot);
+
+		Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.stark_disk);
+
+		Matrix matrix = new Matrix();
+		matrix.postRotate(newRot - 50);
+
+		Bitmap redrawnBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+		setImageBitmap(redrawnBitmap);
+	}	
 }

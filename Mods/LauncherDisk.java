@@ -18,6 +18,8 @@ package com.android.launcher2;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.app.WallpaperManager;
 import android.appwidget.AppWidgetManager;
@@ -57,14 +59,18 @@ public class LauncherDisk extends View{
 	private static final String TAG = "Launcher.LauncherDisk";
 	private static final float ACCELERATION = 0.5f;
 	private VelocityTracker mTracker;
-	private Timer time;
-	private TimerTask spin = new SpinTimer();
+	//The period of time in milliseconds before the timer fires the spinTimerTask
+	final int TIMER_PERIOD = 250;
+	private Timer timer;
+	private TimerTask spin = new SpinTimer(this);
+	private int timeCounter;
 
 	private Drawable mDisk;
 	private final int CENTER_BUTTON_SIZE = 50;
 	private ArrayList<DiskSection> mSections = new ArrayList<DiskSection>();
 	private boolean mSpinRight;
-	private double mCurrentRotation = 0;
+	double differenceX;
+	private float mCurrentRotation = 0;
 	
 
 	public LauncherDisk(Context context, AttributeSet attrs) {
@@ -75,14 +81,14 @@ public class LauncherDisk extends View{
 	public void initSections() {
 		for (int i = 45; i <= 360; i+=45) {
 			//Creates the button in the outermost disk at that angle
-			int firstSize = getWidth() - CENTER_BUTTON_SIZE + .5; //.5 rounds it off correctly
-			mSections.add(new DiskSection(Math.toRadians(i), firstSize);
+			double firstSize = getWidth() - CENTER_BUTTON_SIZE + .5; //.5 rounds it off correctly
+			mSections.add(new DiskSection(getContext(), Math.toRadians(i), firstSize));
 			//Creates the button in the middle disk at that angle
-			int otherSize = getWidth() - (firstSize + CENTER_BUTTON_SIZE);
-			mSections.add(new DiskSection(Math.toRadians(i), otherSize);
+			double otherSize = getWidth() - (firstSize + CENTER_BUTTON_SIZE);
+			mSections.add(new DiskSection(getContext(), Math.toRadians(i), otherSize));
 		}
 		//Creating the center button
-		mSections.add(0, new DiskSection(0, CENTER_BUTTON_SIZE), 2*Math.PI);
+		mSections.add(0, new DiskSection(getContext(), 0, CENTER_BUTTON_SIZE, 2*Math.PI));
 	}
 
 	public boolean onTouchEvent(MotionEvent ev) {
@@ -90,14 +96,12 @@ public class LauncherDisk extends View{
 		final int action = ev.getAction();
 		
 		//Used for keeping track of the amount of milliseconds gone by
-		int timeCounter = 0;
-		//The period of time in milliseconds before the timer fires the spinTimerTask
-		final int TIMER_PERIOD = 250;
+		timeCounter = 0;
 		//The button that was pressed
 		DiskSection selectedButton;
 		
-		double x =  event.getX() - getWidth() / 2.0;
-		double y = - ( event.getY() - getHeight() / 2.0);        
+		double x =  ev.getX() - getWidth() / 2.0;
+		double y = - (ev.getY() - getHeight() / 2.0);        
 		// Compare this to the radii that mark the rings
 		double distFromOrig = Math.sqrt( x*x + y*y );
 		// Compare this to the angles of your slices (in radians)
@@ -112,6 +116,7 @@ public class LauncherDisk extends View{
 						selectedButton = ds;
 						break;
 					}
+
 				}
 				break;
 			//If the finger is drageed, SPIN IT
@@ -123,29 +128,29 @@ public class LauncherDisk extends View{
 				break;
 		}
 		
-		ds.clicked();
-		timer.scheduleAtFixedRate(spin, 0, TIMER_PERIOD);		
+		selectedButton.clicked();
+		//Find the range that was covered in the swipe- adjusts velocity of spin
+		differenceX = ev.getX() - ev.getRawX();
 
+		timer.scheduleAtFixedRate(spin, 0, TIMER_PERIOD);		
 		return true;        
 	}
 
 	//Spins the disk using an algorithm to predict when it should stop, and how much acceleration there is
 	//http://stackoverflow.com/questions/1930963/rotating-a-view-in-android
-	public void spinDisk() {
-		//Find the range that was covered in the swipe- adjusts velocity of spin
-		double differenceX = ev.getX() - ev.getRawX();
+	public void spinDisk(View v) {
 		//The amount of time passed since the start of the Timer
 		double time = timeCounter / TIMER_PERIOD;
 
 		if(mSpinRight)
-			while(timeCounter < findGreatestRoot(differenceX) {
+			while(timeCounter < findGreatestRoot(differenceX)) {
 				mCurrentRotation += (-16 * timeCounter) + (ACCELERATION * timeCounter) + Math.abs(differenceX);
-				setRotation(mCurrentRotation);
+				v.setRotation(mCurrentRotation);
 			}
 		else
-			while(timeCounter < findGreatestRoot(differenceX) {
+			while(timeCounter < findGreatestRoot(differenceX)) {
 				mCurrentRotation -= (-16 * timeCounter) + (ACCELERATION * timeCounter) + Math.abs(differenceX);
-				setRotation(mCurrentRotation);
+				v.setRotation(mCurrentRotation);
 			}
 
 		timeCounter++;		
@@ -165,7 +170,13 @@ public class LauncherDisk extends View{
 	}
 
 	private class SpinTimer extends TimerTask {
+		View v;
+		public SpinTimer(View iv) {
+			v = iv;
+		}
+
 		public void run() {
-			spinDisk();
+			spinDisk(v);
 		}
 	}
+}

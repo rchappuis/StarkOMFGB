@@ -19,25 +19,61 @@ package com.android.launcher2;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import android.app.WallpaperManager;
+import android.appwidget.AppWidgetManager;
+import android.appwidget.AppWidgetProviderInfo;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ProviderInfo;
+import android.content.res.TypedArray;
+import android.graphics.Canvas;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.IBinder;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.VelocityTracker;
+import android.view.View;
+import android.view.ViewConfiguration;
+import android.view.ViewGroup;
+import android.view.ViewParent;
+import android.view.animation.Interpolator;
+import android.widget.ImageButton;
+import android.widget.Scroller;
+import android.widget.TextView;
+
+import com.android.launcher.R;
+
 /** A single piece to the launcher disk **/
-public DiskSection extends ImageButton {
+public class DiskSection extends ImageButton {
 	
 	private double radAngle;
 	private final double angleRange;
 	private double distance;
 	
 	//Constructor for the main sectors of the disks - 45 degrees each section
-	public DiskSection(double iAngle, double iDistance) {
+	public DiskSection(Context context, double iAngle, double iDistance) {
+		super(context);
 		radAngle = iAngle;
 		distance = iDistance;
 		angleRange = Math.PI / 4;
 	}
 	
 	//Constructor for the center button - 360 degrees inputtedd
-	public DiskSection(double iAngle, double iDistance, double iRange) {
+	public DiskSection(Context context, double iAngle, double iDistance, double iRange) {
+		super(context);
 		radAngle = iAngle;
 		distance = iDistance;
 		angleRange = iRange;
+	}
+
+	public void clicked() {
 	}
 	
 	public double getAngle() {

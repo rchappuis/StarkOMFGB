@@ -100,25 +100,19 @@
 	<View class="com.android.launcher2.LauncherDisk" 
 	    android:layout_width="wrap_content" 
 	    android:layout_height="wrap_content"
-	    android:src="@drawable/disk_full"
+	    android:src="@drawable/stark_full"
 	    />
 		
 
         <ImageView
             android:id="@+id/hotseat_left"
-            android:layout_below="@id/shortcut_disk"
-
             android:src="@drawable/hotseat_phone"
-
             android:onClick="launchHotSeat"
             />
 
         <ImageView
             android:id="@+id/hotseat_right"
-            android:layout_above="@id/shortcut_disk"
-
             android:src="@drawable/hotseat_browser"
-
             android:onClick="launchHotSeat"
             />
 

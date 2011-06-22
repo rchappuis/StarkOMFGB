@@ -158,6 +158,8 @@ public final class Launcher extends Activity
 	final int THREE = 3;
 	final int FIVE  = 5;
 	final int SEVEN = 7;
+
+    public static final String USE_STARK_THEME = "use_stark_theme";
     
 
     static final int DEFAULT_SCREEN = 2;
@@ -219,6 +221,8 @@ public final class Launcher extends Activity
     private FolderInfo mFolderInfo;
 
     private DeleteZone mDeleteZone;
+    private LauncherDisk mDisk;
+    private boolean stark_style;
     private HandleView mHandleView;
     private AllAppsView mAllAppsGrid;
 
@@ -336,7 +340,7 @@ public final class Launcher extends Activity
 		Log.d(TAG, "Setting the number of screens for the launcher");
 
 		int NUM_SCREENS = 0;
-		boolean stark_style = setScreenStyle() != 0;
+		stark_style = setScreenStyle();
 
 		try{
 
@@ -389,7 +393,7 @@ public final class Launcher extends Activity
 
 	}
 
-    private int setScreenStyle() {
+    private boolean setScreenStyle() {
 	Log.d(TAG, "Setting the style for the launcher");
 
 	int SCREEN_STYLE = 0;
@@ -408,7 +412,7 @@ public final class Launcher extends Activity
 
 	Log.d(TAG, "Screen style setting resolved");
 	
-	return SCREEN_STYLE;
+	return SCREEN_STYLE != 0;
     }
 
   
@@ -968,7 +972,11 @@ public final class Launcher extends Activity
         DeleteZone deleteZone = (DeleteZone) dragLayer.findViewById(R.id.delete_zone);
         mDeleteZone = deleteZone;
 
-        mHandleView = (HandleView) findViewById(R.id.all_apps_button);
+	mDisk = (LauncherDisk)findViewById(R.id.disk);
+	if(stark_style)
+        	mHandleView = mDisk.getAppsButton();
+	else
+		mHandleView = (HandleView)findViewById(R.id.all_apps_button);
         mHandleView.setLauncher(this);
         mHandleView.setOnClickListener(this);
         mHandleView.setOnLongClickListener(this);

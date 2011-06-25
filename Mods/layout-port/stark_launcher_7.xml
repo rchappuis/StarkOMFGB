@@ -31,6 +31,14 @@
         <include android:id="@+id/cell7" layout="@layout/workspace_screen" />
                 
     </com.android.launcher2.Workspace>
+
+    <com.android.launcher2.LauncherDisk
+    	android:id="@+id/disk" 
+    	android:layout_width="wrap_content" 
+    	android:layout_height="wrap_content"
+	android:layout_gravity="bottom|center"
+    	android:src="@drawable/stark_full"
+    />
  
     <!-- this defines the dots location indicator -->
     <ImageView
@@ -88,17 +96,10 @@
         android:paddingTop="2dip"
         >
 
-	<View class="com.android.launcher2.LauncherDisk" 
-	    android:id="@+id/disk" 
-	    android:layout_width="wrap_content" 
-	    android:layout_height="wrap_content"
-	    android:src="@drawable/stark_full"
-	    />
-
         <ImageView
             android:id="@+id/hotseat_left"
             style="@style/HotseatButton.Left"
-            android:layout_toLeftOf="@id/all_apps_button"
+            android:layout_toLeftOf="@id/disk"
 
             android:src="@drawable/hotseat_phone"
 
@@ -108,7 +109,7 @@
         <ImageView
             android:id="@+id/hotseat_right"
             style="@style/HotseatButton.Right"
-            android:layout_toRightOf="@id/all_apps_button"
+            android:layout_toRightOf="@id/disk"
 
             android:src="@drawable/hotseat_browser"
 

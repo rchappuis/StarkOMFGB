@@ -41,6 +41,14 @@
 
     </com.android.launcher2.Workspace>
 
+    <com.android.launcher2.LauncherDisk
+    	android:id="@+id/disk" 
+    	android:layout_width="wrap_content" 
+    	android:layout_height="wrap_content"
+	android:layout_gravity="center|right"
+    	android:src="@drawable/stark_full"
+    />
+
     <com.android.launcher2.ClippedImageView
         android:id="@+id/previous_screen"
         android:layout_width="93dip"
@@ -95,25 +103,19 @@
         android:layout_width="@dimen/button_bar_height_portrait"
         android:layout_gravity="right|center_vertical"
         android:layout_marginBottom="@dimen/half_status_bar_height"
-        >
-	    
-	<View class="com.android.launcher2.LauncherDisk"
-	    android:id="@+id/disk" 
-	    android:layout_width="wrap_content" 
-	    android:layout_height="wrap_content"
-	    android:src="@drawable/stark_full"
-	    />
-		
+        >		
 
         <ImageView
             android:id="@+id/hotseat_left"
             android:src="@drawable/hotseat_phone"
+	    android:layout_above:"@id/disk"
             android:onClick="launchHotSeat"
             />
 
         <ImageView
             android:id="@+id/hotseat_right"
             android:src="@drawable/hotseat_browser"
+	    android:layout_below:"@id/disk"
             android:onClick="launchHotSeat"
             />
 

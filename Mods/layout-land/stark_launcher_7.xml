@@ -32,7 +32,13 @@
                 
     </com.android.launcher2.Workspace>
 
-
+    <com.android.launcher2.LauncherDisk
+    	android:id="@+id/disk" 
+    	android:layout_width="wrap_content" 
+    	android:layout_height="wrap_content"
+	android:layout_gravity="center|right"
+    	android:src="@drawable/stark_full"
+    />
  
     <!-- this defines the dots location indicator -->
    <com.android.launcher2.ClippedImageView
@@ -94,20 +100,12 @@
         android:layout_marginBottom="@dimen/half_status_bar_height"
         >
 
-	<View class="com.android.launcher2.LauncherDisk" 
-	    android:id="@+id/disk"
-	    android:layout_width="wrap_content" 
-	    android:layout_height="wrap_content"
-	    android:src="@drawable/stark_full"
-	    />
-
         <ImageView
             android:id="@+id/hotseat_left"
             style="@style/HotseatButton.Left"
             android:layout_below="@id/all_apps_button"
-
+	    android:layout_above:"@id/disk"
             android:src="@drawable/hotseat_phone"
-
             android:onClick="launchHotSeat"
             />
 
@@ -115,9 +113,8 @@
             android:id="@+id/hotseat_right"
             style="@style/HotseatButton.Right"
             android:layout_above="@id/all_apps_button"
-
+	    android:layout_below:"@id/disk"
             android:src="@drawable/hotseat_browser"
-
             android:onClick="launchHotSeat"
             />
 

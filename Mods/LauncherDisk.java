@@ -66,10 +66,11 @@ public class LauncherDisk extends ImageView{
 	final int TIMER_PERIOD = 250;
 	//private Timer timer;
 	//private TimerTask spin = new SpinTimer(this);
-	//private int timeCounter;
+	private int timeCounter;
 
 	private final int CENTER_BUTTON_SIZE = 50;
 	private ArrayList<DiskSection> mSections = new ArrayList<DiskSection>();
+	private HandleView all_apps_button;
 	private boolean mSpinRight;
 	double differenceX;
 	private float mCurrentRotation = 0;
@@ -90,7 +91,11 @@ public class LauncherDisk extends ImageView{
 			mSections.add(new DiskSection(getContext(), Math.toRadians(i), otherSize));
 		}
 		//Creating the center button
-		mSections.add(0, new DiskSection(getContext(), 0, CENTER_BUTTON_SIZE, 2*Math.PI));
+		all_apps_button = new HandleView(getContext());
+	}
+
+	public HandleView getAppsButton() {
+		return all_apps_button;
 	}
 
 	public boolean onTouchEvent(MotionEvent ev) {
@@ -129,7 +134,8 @@ public class LauncherDisk extends ImageView{
 				/*if(differenceX < 0) 
 					mSpinRight = false;
 				else
-					mSpinRight = true;*/
+					mSpinRight = true;
+				spinDisk(this);*/
 				updateRotation(rotation);
 				break;
 		}
@@ -189,12 +195,12 @@ public class LauncherDisk extends ImageView{
     	{
 		float newRot = new Float(rot);
 
-		Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.stark_disk);
+		Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.stark_full);
 
 		Matrix matrix = new Matrix();
 		matrix.postRotate(newRot - 50);
 
 		Bitmap redrawnBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
 		setImageBitmap(redrawnBitmap);
-	}	
+	}
 }

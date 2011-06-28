@@ -93,7 +93,7 @@
     <RelativeLayout
         android:id="@+id/all_apps_button_cluster"
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/button_bar_height"
+        android:layout_height="@dimen/stark_bar_height"
         android:layout_gravity="bottom|center_horizontal"
         android:paddingTop="2dip"
         >
@@ -101,20 +101,16 @@
         <ImageView
             android:id="@+id/hotseat_left"
             style="@style/HotseatButton.Left"
-            android:layout_toLeftOf="@id/disk"
-
-            android:src="@drawable/hotseat_phone"
-
+            android:layout_gravity="left"
+            android:src="@drawable/stark_hotseat_phone"
             android:onClick="launchHotSeat"
             />
 
         <ImageView
             android:id="@+id/hotseat_right"
             style="@style/HotseatButton.Right"
-            android:layout_toRightOf="@id/disk"
-
-            android:src="@drawable/hotseat_browser"
-
+            android:layout_gravity="right"
+            android:src="@drawable/stark_hotseat_browser"
             android:onClick="launchHotSeat"
             />
 

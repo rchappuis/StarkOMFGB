@@ -91,11 +91,11 @@ public class LauncherDisk extends ImageView{
 			mSections.add(new DiskSection(getContext(), Math.toRadians(i), otherSize));
 		}
 		//Creating the center button
-		all_apps_button = new HandleView(getContext());
+		mSections.add(0, new DiskSection(getContext(), 0, CENTER_BUTTON_SIZE, Math.PI*2));
 	}
 
 	public HandleView getAppsButton() {
-		return all_apps_button;
+		return mSections.get(0).getAppsButton();
 	}
 
 	public boolean onTouchEvent(MotionEvent ev) {
@@ -123,7 +123,7 @@ public class LauncherDisk extends ImageView{
 				for(DiskSection ds : mSections) {
 					if ((angle >= ds.getAngle() && angle <= ds.getEndAngle()) && distFromOrig >= ds.getDistance()) {
 						selectedButton = ds;
-						selectedButton.clicked();
+						selectedButton.clicked(ev);
 						break;
 					}
 

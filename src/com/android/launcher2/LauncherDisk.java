@@ -91,11 +91,11 @@ public class LauncherDisk extends ImageView{
 			mSections.add(new DiskSection(getContext(), Math.toRadians(i), otherSize));
 		}
 		//Creating the center button
-		all_apps_button = new HandleView(getContext());
+		mSections.add(0, new DiskSection(getContext(), 0, CENTER_BUTTON_SIZE, Math.PI*2));
 	}
 
 	public HandleView getAppsButton() {
-		return all_apps_button;
+		return mSections.get(0).getAppsButton();
 	}
 
 	public boolean onTouchEvent(MotionEvent ev) {
@@ -123,7 +123,6 @@ public class LauncherDisk extends ImageView{
 				for(DiskSection ds : mSections) {
 					if ((angle >= ds.getAngle() && angle <= ds.getEndAngle()) && distFromOrig >= ds.getDistance()) {
 						selectedButton = ds;
-						selectedButton.clicked();
 						break;
 					}
 
@@ -131,64 +130,13 @@ public class LauncherDisk extends ImageView{
 				break;
 			//If the finger is drageed, SPIN IT
 			case MotionEvent.ACTION_MOVE:
-				/*if(differenceX < 0) 
-					mSpinRight = false;
-				else
-					mSpinRight = true;
-				spinDisk(this);*/
 				updateRotation(rotation);
 				break;
 		}
-		
-		//Find the range that was covered in the swipe- adjusts velocity of spin
-		//differenceX = ev.getX() - ev.getRawX();
-
-		//timer.scheduleAtFixedRate(spin, 0, TIMER_PERIOD);		
+				
+		selectedButton.clicked(ev);
 		return true;        
 	}
-
-	//Spins the disk using an algorithm to predict when it should stop, and how much acceleration there is
-	//http://stackoverflow.com/questions/1930963/rotating-a-view-in-android
-	/*public void spinDisk(View v) {
-		//The amount of time passed since the start of the Timer
-		double time = timeCounter / TIMER_PERIOD;
-
-		if(mSpinRight)
-			while(timeCounter < findGreatestRoot(differenceX)) {
-				mCurrentRotation += (-16 * timeCounter) + (ACCELERATION * timeCounter) + Math.abs(differenceX);
-				v.setRotation(mCurrentRotation);
-			}
-		else
-			while(timeCounter < findGreatestRoot(differenceX)) {
-				mCurrentRotation -= (-16 * timeCounter) + (ACCELERATION * timeCounter) + Math.abs(differenceX);
-				v.setRotation(mCurrentRotation);
-			}
-
-		timeCounter++;		
-	}
-
-	//Helper method- returns the greatest root of the equation -16t+vt+|differenceX|
-	public double findGreatestRoot(double differenceX) {
-		
-		//Running the quadratic equation
-		double underRadical = Math.pow(ACCELERATION, 2) - (4*-16*Math.abs(differenceX));
-	
-		double firstRoot = (-1 * ACCELERATION + Math.sqrt(underRadical)) / 2 * -16;
-		double secondRoot = (-1 * ACCELERATION - Math.sqrt(underRadical)) / 2 * -16;
-
-		//Returns the greater of the two roots
-		return Math.max(firstRoot, secondRoot);
-	}
-	private class SpinTimer extends TimerTask {
-		View v;
-		public SpinTimer(View iv) {
-			v = iv;
-		}
-
-		public void run() {
-			spinDisk(v);
-		}
-	}*/
 
 	//Sets the rotation, somehow (http://goo.gl/rrDBo)
 	private void updateRotation(double rot)
@@ -201,6 +149,7 @@ public class LauncherDisk extends ImageView{
 		matrix.postRotate(newRot - 50);
 
 		Bitmap redrawnBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+		setScaleType(ScaleType.CENTER);
 		setImageBitmap(redrawnBitmap);
 	}
 }

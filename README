@@ -3,4 +3,4 @@ Changelog:
 -Disk is clickable- doesn't force close anymore
 -Hotkey shortcuts are positioned correctly
 -Disk is positioned correctly
--Disk rotates (+), but also resizes (-)
+-Disk rotates (+), but also resizes (should be fixed, gotta wait til next build to see)

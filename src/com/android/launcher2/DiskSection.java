@@ -56,6 +56,8 @@ public class DiskSection extends ImageButton {
 	private double radAngle;
 	private final double angleRange;
 	private double distance;
+	private boolean isCenter;
+	private HandleView appsButton;
 	
 	//Constructor for the main sectors of the disks - 45 degrees each section
 	public DiskSection(Context context, double iAngle, double iDistance) {
@@ -63,6 +65,7 @@ public class DiskSection extends ImageButton {
 		radAngle = iAngle;
 		distance = iDistance;
 		angleRange = Math.PI / 4;
+		isCenter = false;
 	}
 	
 	//Constructor for the center button - 360 degrees inputtedd
@@ -71,9 +74,17 @@ public class DiskSection extends ImageButton {
 		radAngle = iAngle;
 		distance = iDistance;
 		angleRange = iRange;
+		isCenter = true;
+		appsButton = new HandleView(getContext());
 	}
 
-	public void clicked() {
+	public void clicked(MotionEvent ev) {
+		if(isCenter)
+			appsButton.onTouchEvent(ev);
+	}
+
+	public HandleView getAppsButton() {
+		return appsButton;
 	}
 	
 	public double getAngle() {

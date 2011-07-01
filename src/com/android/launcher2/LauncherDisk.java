@@ -122,19 +122,20 @@ public class LauncherDisk extends ImageView{
 			case MotionEvent.ACTION_UP:
 				for(DiskSection ds : mSections) {
 					if ((angle >= ds.getAngle() && angle <= ds.getEndAngle()) && distFromOrig >= ds.getDistance()) {
+						Log.d(TAG, "Found button");
 						selectedButton = ds;
+						selectedButton.clicked(ev);
 						break;
 					}
 
 				}
 				break;
-			//If the finger is drageed, SPIN IT
+			//If the finger is dragged, SPIN IT
 			case MotionEvent.ACTION_MOVE:
 				updateRotation(rotation);
 				break;
 		}
 				
-		selectedButton.clicked(ev);
 		return true;        
 	}
 

@@ -102,5 +102,9 @@ public class DiskSection extends ImageButton {
 	public double getEndAngle() {
 		return radAngle + angleRange;
 	}
+
+	public String toString(){
+		return "Distance: "+distance+"\nAngle: "+radAngle+"\nisCenter: "+isCenter;
+	}
 }
 		

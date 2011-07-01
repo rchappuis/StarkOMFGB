@@ -41,10 +41,10 @@
 
     </com.android.launcher2.Workspace>
 
-    <FrameView android:id="@+id/disk_parent"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:layout_gravity="center|right">
+    <RelativeLayout android:id="@+id/disk_parent"
+	android:layout_width="480dip"
+	android:layout_height="480dip"
+	android:layout_gravity="center|bottom">
 
 	    <com.android.launcher2.LauncherDisk
 	    	android:id="@+id/disk" 
@@ -53,7 +53,7 @@
 		android:layout_gravity="center"
 	    	android:src="@drawable/stark_full"
 	    />
-    </FrameView>
+    </RelativeLayout>
 
     <com.android.launcher2.ClippedImageView
         android:id="@+id/previous_screen"
@@ -114,14 +114,14 @@
         <ImageView
             android:id="@+id/hotseat_left"
             android:src="@drawable/stark_hotseat_phone"
-	    android:layout_gravity="top"
+	    android:gravity="top"
             android:onClick="launchHotSeat"
             />
 
         <ImageView
             android:id="@+id/hotseat_right"
             android:src="@drawable/stark_hotseat_browser"
-	    android:layout_gravity="bottom"
+	    android:gravity="bottom"
             android:onClick="launchHotSeat"
             />
 

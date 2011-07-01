@@ -122,7 +122,7 @@ public class LauncherDisk extends ImageView{
 			case MotionEvent.ACTION_UP:
 				for(DiskSection ds : mSections) {
 					if ((angle >= ds.getAngle() && angle <= ds.getEndAngle()) && distFromOrig >= ds.getDistance()) {
-						Log.d(TAG, "Found button");
+						Log.d(TAG, "Found button "+ds.toString());
 						selectedButton = ds;
 						selectedButton.clicked(ev);
 						break;

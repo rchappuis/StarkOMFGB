@@ -103,14 +103,14 @@
         <ImageView
             android:id="@+id/hotseat_left"
             android:src="@drawable/hotseat_phone"
-	    android:layout_gravity="top"
+	    android:gravity="top"
             android:onClick="launchHotSeat"
             />
 
         <ImageView
             android:id="@+id/hotseat_right"
             android:src="@drawable/hotseat_browser"
-	    android:layout_gravity="bottom"
+	    android:gravity="bottom"
             android:onClick="launchHotSeat"
             />
 

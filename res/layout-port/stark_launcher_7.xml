@@ -98,16 +98,16 @@
 
         <ImageView
             android:id="@+id/hotseat_left"
-            style="@style/HotseatButton.Left"
-            android:layout_gravity="left"
+            style="@style/StarkHotseat.Left"
+            android:gravity="left"
             android:src="@drawable/stark_hotseat_phone"
             android:onClick="launchHotSeat"
             />
 
         <ImageView
             android:id="@+id/hotseat_right"
-            style="@style/HotseatButton.Right"
-            android:layout_gravity="right"
+            style="@style/StarkHotseat.Right"
+            android:gravity="right"
             android:src="@drawable/stark_hotseat_browser"
             android:onClick="launchHotSeat"
             />

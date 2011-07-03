@@ -1688,6 +1688,7 @@ public final class Settings {
          */
         public static final String DATE_FORMAT = "date_format";
 
+
         /**
          * Whether the setup wizard has been run before (on first boot), or if
          * it still needs to be run.
@@ -1723,6 +1724,19 @@ public final class Settings {
          * disabled by the application.
          */
         public static final String ACCELEROMETER_ROTATION = "accelerometer_rotation";
+
+         /**
+         * Control the type of rotation which can be performed using the accelerometer
+         * if ACCELEROMETER_ROTATION is enabled.
+         * Value is a bitwise combination of
+         * 1 = 90 degrees (left)
+         * 2 = 180 degrees (inverted)
+         * 4 = 270 degrees (right)
+         * Normal portrait (0 degrees) is always enabled
+         * Default is 5 (90 & 270 degrees), like stock Android
+         * @hide
+         */
+        public static final String ACCELEROMETER_ROTATION_MODE = "accelerometer_rotation_mode";
 
         /**
          * Whether the audible DTMF tones are played by the dialer when dialing. The value is
@@ -1941,112 +1955,153 @@ public final class Settings {
          */
         public static final String STATUS_BAR_CM_BATTERY = "status_bar_cm_battery";
 
-	/*
-	 * Whether to show the clock in the status bar
-	 * of the stock battery icon
-	 * 0: don't show the clock
-	 * 1: show the clock
-	 * default: 1
-	 * @hide
-	 */
-	public static final String STATUS_BAR_CLOCK = "status_bar_clock";
+		/*
+		 * Whether to show the clock in the status bar
+		 * of the stock battery icon
+		 * 0: don't show the clock
+		 * 1: show the clock
+		 * default: 1
+		 * @hide
+		 */
+		public static final String STATUS_BAR_CLOCK = "status_bar_clock";
+
+	   /**
+	   * Whether to always show battery status
+	   * @hide
+	   */
+	   public static final String LOCKSCREEN_ALWAYS_BATTERY = "lockscreen_always_battery";
+
+
 
         /**
-         * Whether to always show battery status
+		 * Whether lockscreen shortcuts should be shown on lockscreen
+		 * @hide
+		 */
+		public static final String LOCKSCREEN_SHORTCUTS = "lockscreen_shortcuts";
+
+		/**
+		 * Whether to enable music controls on the volume controls
+		 * @hide
+		 */
+		public static final String ENABLE_VOL_MUSIC_CONTROLS = "enable_vol_music_controls";
+
+		/**
+		 * Whether to wake the screen with trackpad
+		 * @hide
+		 */
+		public static final String TRACKPAD_WAKE_SCREEN = "trackpad_wake_screen";
+
+	        /** 
+		 * Volume button screen wake setting (from CM)
+		 * @hide
+		 */
+		public static final String VOLUME_WAKE_SCREEN = "volume_wake_screen";
+
+		/**
+		 * Whether to enable trackpad unlock
+		 * @hide
+		 */
+		public static final String TRACKPAD_UNLOCK_SCREEN = "trackpad_unlock_screen";
+
+		/**
+		 * Whether to enable menu unlock
+		 * @hide
+		 */
+		public static final String MENU_UNLOCK_SCREEN = "menu_unlock_screen";
+
+		/**
+		 * Screen setting for launcher mods
+		 * @hide
+		 */
+		public static final String SCREEN_SETTINGS = "NUM_SCREENS";
+
+		/**
+		 * Launcher 2 Package
+		 * @hide
+		 */
+		public static final String LAUNCHER_2_PACKAGE = "com.android.launcher";
+
+        /**
+         * Sets Wallpaper image to move with the homescreens. 
          * @hide
          */
-        public static final String LOCKSCREEN_ALWAYS_BATTERY = "lockscreen_always_battery";
- 
-        /**
-	 * Whether lockscreen shortcuts should be shown on lockscreen
-	 * @hide
-	 */
-	public static final String LOCKSCREEN_SHORTCUTS = "lockscreen_shortcuts";
+        public static final String WALLPAPER_LOOP = "wallpaper_loop";
 
-	/**
-	 * Whether to enable music controls on the volume controls
-	 * @hide
-	 */
-	public static final String ENABLE_VOL_MUSIC_CONTROLS = "enable_vol_music_controls";
+		/**
+		 * Sets Launcher to continuously loop from one end of the 
+		 * workspace to the other.
+		 * @hide
+		 */
+		public static final String LAUNCHER_ENDLESS_LOOP = "launcher_endless_loop";
 
-	/**
-	 * Whether to wake the screen with trackpad
-	 * @hide
-	 */
-	public static final String TRACKPAD_WAKE_SCREEN = "trackpad_wake_screen";
+		/**
+		 * Carrier caption option
+		 * @hide
+		 */
+		public static final String CARRIER_CAP = "carrier_caption";
 
-        /** 
-	 * Volume button screen wake setting (from CM)
-	 * @hide
-	 */
-	public static final String VOLUME_WAKE_SCREEN = "volume_wake_screen";
+		/**
+		 * Electron beam animation
+		 * @hide
+		 */
+		public static final String USE_SCREENON_ANIM = "use_screenon_anim";
 
-	/**
-	 * Whether to enable trackpad unlock
-	 * @hide
-	 */
-	public static final String TRACKPAD_UNLOCK_SCREEN = "trackpad_unlock_screen";
+		/**
+		 * Electron beam animation
+		 * @hide
+		 */
+		public static final String USE_SCREENOFF_ANIM = "use_screenoff_anim"; 
 
-	/**
-	 * Whether to enable menu unlock
-	 * @hide
-	 */
-	public static final String MENU_UNLOCK_SCREEN = "menu_unlock_screen";
+		/**
+		 * Stark launcher option
+		 * @hide
+		 */
+		public static final String USE_STARK_THEME = "use_stark_theme";
 
-	/**
-	 * Screen setting for launcher mods
-	 * @hide
-	 */
-	public static final String SCREEN_SETTINGS = "NUM_SCREENS";
+		/**
+		 * Whether or not to allow the lockscreen is allowed to have the music 
+		 * controls on.
+		 * @hide
+		*/
 
-	/**
-	 * Launcher 2 Package
-	 * @hide
-	 */
-	public static final String LAUNCHER_2_PACKAGE = "com.android.launcher";
+		public static final String LOCKSCREEN_MUSIC_ON = "lockscreen_music_controls";
 
-	/**
-	 * Sets Launcher to continuously loop from one end of the 
-	 * workspace to the other.
-	 * @hide
-	 */
-	public static final String LAUNCHER_ENDLESS_LOOP = "launcher_endless_loop";
+		/**
+		 * Which lockscreen the user wants displayed.
+		 * @hide
+		*/
+		public static final String LOCKSCREEN_TYPE = "lockscreen_type";
 
-	/**
-	 * Carrier caption option
-	 * @hide
-	 */
-	public static final String CARRIER_CAP = "carrier_caption";
+		/**
+		 * Whether or not to allow orientation changes in the lockscreen.
+		 * @hide
+		*/
 
-	/**
-	 * Electron beam animation
-	 * @hide
-	 */
-	public static final String USE_SCREENON_ANIM = "use_screenon_anim";
-	
-	/**
-	 * Electron beam animation
-	 * @hide
-	 */
-	public static final String USE_SCREENOFF_ANIM = "use_screenoff_anim"; 
-	
-	/**
-	 * Stark launcher option
-	 * @hide
-	 */
-	public static final String USE_STARK_THEME = "use_stark_theme";
+        public static final String LOCKSCREEN_ORIENTATION = "lockscreen_orientation";
+	      	/**
+		* Use tab lockscreen 
+		* @hide
+		*/
+		public static final int USE_TAB_LOCKSCREEN = 1;  
 
-	/**
-	* Use rotary lockscreen instead of tab unlock screen
-	* @hide
-	*/
-	public static final String USE_ROTARY_LOCKSCREEN = "use_rotary_lockscreen";
+		/**
+		* Use rotary the lockscreen 
+		* @hide
+		*/
+		public static final int USE_ROTARY_LOCKSCREEN = 2;
 
-	/**
-	* @hide
-	*/
-	public static final String BATTERY_OPTION = "battery_option";
-       
+		/**
+		* Use HoneyComb lockscreen concept
+		* @hide
+		*/
+		public static final int USE_HC_LOCKSCREEN = 3;
+
+
+		/**
+		* @hide
+		*/
+		public static final String BATTERY_OPTION = "battery_option";
+
         /**
          * Use the Notification Power Widget? (Who wouldn't!)
          *
@@ -2156,6 +2211,7 @@ public final class Settings {
             TIME_12_24,
             DATE_FORMAT,
             ACCELEROMETER_ROTATION,
+            ACCELEROMETER_ROTATION_MODE,
             DTMF_TONE_WHEN_DIALING,
             DTMF_TONE_TYPE_WHEN_DIALING,
             EMERGENCY_TONE,
@@ -2676,6 +2732,12 @@ public final class Settings {
          * @hide
          */
         public static final String ADB_NOTIFY = "adb_notify";
+
+        /**
+         * The host name for this device.
+         * @hide
+         */
+        public static final String DEVICE_HOSTNAME = "device_hostname";
 
         /**
          * Setting to allow mock locations and location provider status to be injected into the
